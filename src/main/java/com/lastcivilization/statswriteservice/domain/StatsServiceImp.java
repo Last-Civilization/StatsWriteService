@@ -1,7 +1,9 @@
 package com.lastcivilization.statswriteservice.domain;
 
 import com.lastcivilization.statswriteservice.domain.dto.LvlDto;
+import com.lastcivilization.statswriteservice.domain.dto.StatsDto;
 import com.lastcivilization.statswriteservice.domain.dto.StatsValueDto;
+import com.lastcivilization.statswriteservice.domain.dto.UserDto;
 import com.lastcivilization.statswriteservice.domain.port.StatsRepository;
 import com.lastcivilization.statswriteservice.domain.port.StatsService;
 import com.lastcivilization.statswriteservice.domain.port.UserService;
@@ -18,12 +20,34 @@ public class StatsServiceImp implements StatsService {
 
     @Override
     public Long createStats() {
-        return null;
+        Stats stats = buildStats();
+        StatsDto statsDto = Mapper.toDto(stats);
+        StatsDto savedStatsDto = statsRepository.save(statsDto);
+        return savedStatsDto.id();
+    }
+
+    private Stats buildStats() {
+        return Stats.Builder.aStats().build();
     }
 
     @Override
     public LvlDto experienceUp(String keycloakId, int experience) {
-        return null;
+        UserDto userDto = userService.getUser(keycloakId);
+        StatsDto statsDto = statsRepository.findById(userDto.stats());
+        LvlDto lvlDto = statsDto.lvl();
+        int lvl = lvlDto.current();
+        int currentExperience = lvlDto.experience();
+        currentExperience += experience;
+        if(experience > getExperienceToNextLvl(lvl)){
+            experience = 0;
+            lvl++;
+        }
+        StatsDto savedStatsDto = statsRepository.save(statsDto);
+        return savedStatsDto.lvl();
+    }
+
+    private int getExperienceToNextLvl(int lvl) {
+        return ((lvl + 100) * (lvl / 2)) + 100;
     }
 
     @Override
