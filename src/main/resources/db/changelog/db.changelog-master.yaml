@@ -1,0 +1,172 @@
+databaseChangeLog:
+  - changeSet:
+      id: DB-SCHEMA
+      author: mrrevo
+      changes:
+        - createTable:
+            tableName: stats
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: lvl
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: resistance
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: damage
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: strength
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: dexterity
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: defense
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+        - createTable:
+            tableName: stats_lvl
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: current
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: experience
+                  type: INT
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: stats_value
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: amount
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: time_bonus
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+        - createTable:
+            tableName: stats_value_time_bonus
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: end_date
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: INT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            constraintName: fk_stats_lvl
+            baseTableName: stats
+            baseColumnNames: lvl
+            referencedTableName: stats_lvl
+            referencedColumnNames: id
+            onUpdate: CASCADE
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            constraintName: fk_stats_resistance
+            baseTableName: stats
+            baseColumnNames: resistance
+            referencedTableName: stats_value
+            referencedColumnNames: id
+            onUpdate: CASCADE
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            constraintName: fk_stats_damage
+            baseTableName: stats
+            baseColumnNames: damage
+            referencedTableName: stats_value
+            referencedColumnNames: id
+            onUpdate: CASCADE
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            constraintName: fk_stats_strength
+            baseTableName: stats
+            baseColumnNames: strength
+            referencedTableName: stats_value
+            referencedColumnNames: id
+            onUpdate: CASCADE
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            constraintName: fk_stats_dexterity
+            baseTableName: stats
+            baseColumnNames: dexterity
+            referencedTableName: stats_value
+            referencedColumnNames: id
+            onUpdate: CASCADE
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            constraintName: fk_stats_defense
+            baseTableName: stats
+            baseColumnNames: defense
+            referencedTableName: stats_value
+            referencedColumnNames: id
+            onUpdate: CASCADE
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            constraintName: fk_stats_value_time_bonus
+            baseTableName: stats_value
+            baseColumnNames: time_bonus
+            referencedTableName: stats_value_time_bonus
+            referencedColumnNames: id
+            onUpdate: CASCADE
+            onDelete: CASCADE
