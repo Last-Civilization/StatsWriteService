@@ -39,8 +39,8 @@ class Lvl {
     public static final class Builder {
 
         private Long id;
-        private int current;
-        private int experience;
+        private int current = 1;
+        private int experience = 0;
 
         private Builder() {
         }
