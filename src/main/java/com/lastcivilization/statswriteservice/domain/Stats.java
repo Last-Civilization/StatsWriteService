@@ -4,16 +4,14 @@ class Stats {
 
     private Long id;
     private Lvl lvl;
-    private StatsValue resistance;
     private StatsValue damage;
     private StatsValue strength;
     private StatsValue dexterity;
     private StatsValue defense;
 
-    public Stats(Long id, Lvl lvl, StatsValue resistance, StatsValue damage, StatsValue strength, StatsValue dexterity, StatsValue defense) {
+    public Stats(Long id, Lvl lvl, StatsValue damage, StatsValue strength, StatsValue dexterity, StatsValue defense) {
         this.id = id;
         this.lvl = lvl;
-        this.resistance = resistance;
         this.damage = damage;
         this.strength = strength;
         this.dexterity = dexterity;
@@ -34,14 +32,6 @@ class Stats {
 
     public void setLvl(Lvl lvl) {
         this.lvl = lvl;
-    }
-
-    public StatsValue getResistance() {
-        return resistance;
-    }
-
-    public void setResistance(StatsValue resistance) {
-        this.resistance = resistance;
     }
 
     public StatsValue getDamage() {
@@ -80,7 +70,6 @@ class Stats {
 
         private Long id;
         private Lvl lvl;
-        private StatsValue resistance;
         private StatsValue damage;
         private StatsValue strength;
         private StatsValue dexterity;
@@ -100,11 +89,6 @@ class Stats {
 
         public Builder lvl(Lvl lvl) {
             this.lvl = lvl;
-            return this;
-        }
-
-        public Builder resistance(StatsValue resistance) {
-            this.resistance = resistance;
             return this;
         }
 
@@ -129,7 +113,7 @@ class Stats {
         }
 
         public Stats build() {
-            return new Stats(id, lvl, resistance, damage, strength, dexterity, defense);
+            return new Stats(id, lvl, damage, strength, dexterity, defense);
         }
     }
 }
