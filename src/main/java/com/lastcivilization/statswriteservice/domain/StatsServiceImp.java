@@ -4,6 +4,7 @@ import com.lastcivilization.statswriteservice.domain.dto.LvlDto;
 import com.lastcivilization.statswriteservice.domain.dto.StatsDto;
 import com.lastcivilization.statswriteservice.domain.dto.StatsValueDto;
 import com.lastcivilization.statswriteservice.domain.dto.UserDto;
+import com.lastcivilization.statswriteservice.domain.exception.NotEnoughMoneyException;
 import com.lastcivilization.statswriteservice.domain.port.StatsRepository;
 import com.lastcivilization.statswriteservice.domain.port.StatsService;
 import com.lastcivilization.statswriteservice.domain.port.UserService;
@@ -52,7 +53,29 @@ public class StatsServiceImp implements StatsService {
 
     @Override
     public StatsValueDto trainStrength(String keycloakId) {
+        UserDto userDto = userService.getUser(keycloakId);
+        StatsDto statsDto = statsRepository.findById(userDto.stats());
+        StatsValueDto strength = statsDto.strength();
+        int currentStrength = strength.amount();
+        int cost = getCostNextLvl(currentStrength);
+        userService.getMoneyFromUser(cost);
+        currentStrength++;
+        upDamageByNewStrength(currentStrength, statsDto);
         return null;
+    }
+
+    private int getCostNextLvl(int toTrain) {
+        return (toTrain * 10) / 2;
+    }
+
+    private void upDamageByNewStrength(int currentStrength, StatsDto statsDto) {
+        StatsValueDto damage = statsDto.damage();
+        int currentDamage = damage.amount();
+        currentDamage += getDamageUpdate(currentStrength);
+    }
+
+    private static int getDamageUpdate(int currentStrength) {
+        return ((currentStrength * 3) / 15) + 1;
     }
 
     @Override

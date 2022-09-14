@@ -4,4 +4,4 @@ public record StatsValueDto(
         Long id,
         int amount,
         TimeBonusDto timeBonus
-) {}
+) { }

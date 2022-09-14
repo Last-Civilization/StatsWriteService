@@ -1,6 +1,6 @@
 package com.lastcivilization.statswriteservice.domain;
 
-class StatsValue {
+public class StatsValue {
 
     private Long id;
     private int amount = 1;
@@ -34,6 +34,10 @@ class StatsValue {
 
     public void setTimeBonus(TimeBonus timeBonus) {
         this.timeBonus = timeBonus;
+    }
+
+    public int withBonus(){
+        return amount + (amount * (timeBonus.getAmount() / 100));
     }
 
     public static final class Builder {
