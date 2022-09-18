@@ -4,7 +4,7 @@ import com.lastcivilization.statswriteservice.domain.dto.LvlDto;
 import com.lastcivilization.statswriteservice.domain.dto.StatsDto;
 import com.lastcivilization.statswriteservice.domain.dto.StatsValueDto;
 import com.lastcivilization.statswriteservice.domain.dto.UserDto;
-import com.lastcivilization.statswriteservice.domain.exception.NotEnoughMoneyException;
+import com.lastcivilization.statswriteservice.domain.port.PaymentService;
 import com.lastcivilization.statswriteservice.domain.port.StatsRepository;
 import com.lastcivilization.statswriteservice.domain.port.StatsService;
 import com.lastcivilization.statswriteservice.domain.port.UserService;
@@ -13,10 +13,12 @@ public class StatsServiceImp implements StatsService {
 
     private final StatsRepository statsRepository;
     private final UserService userService;
+    private final PaymentService paymentService;
 
-    public StatsServiceImp(StatsRepository statsRepository, UserService userService) {
+    public StatsServiceImp(StatsRepository statsRepository, UserService userService, PaymentService paymentService) {
         this.statsRepository = statsRepository;
         this.userService = userService;
+        this.paymentService = paymentService;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class StatsServiceImp implements StatsService {
         StatsValueDto strength = statsDto.strength();
         int currentStrength = strength.amount();
         int cost = getCostNextLvl(currentStrength);
-        userService.getMoneyFromUser(cost);
+        //get money from user
         currentStrength++;
         upDamageByNewStrength(currentStrength, statsDto);
         return null;
