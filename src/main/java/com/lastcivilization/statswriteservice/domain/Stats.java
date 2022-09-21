@@ -69,11 +69,11 @@ class Stats {
     public static final class Builder {
 
         private Long id;
-        private Lvl lvl;
-        private StatsValue damage;
-        private StatsValue strength;
-        private StatsValue dexterity;
-        private StatsValue defense;
+        private Lvl lvl = Lvl.Builder.aLvl().build();
+        private StatsValue damage = StatsValue.Builder.aStatsValue().build();
+        private StatsValue strength = StatsValue.Builder.aStatsValue().build();
+        private StatsValue dexterity = StatsValue.Builder.aStatsValue().build();
+        private StatsValue defense = StatsValue.Builder.aStatsValue().build();
 
         private Builder() {
         }

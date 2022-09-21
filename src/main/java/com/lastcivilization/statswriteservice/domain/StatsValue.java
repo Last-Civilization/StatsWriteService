@@ -3,7 +3,7 @@ package com.lastcivilization.statswriteservice.domain;
 public class StatsValue {
 
     private Long id;
-    private int amount = 1;
+    private int amount;
     private TimeBonus timeBonus;
 
     public StatsValue(Long id, int amount, TimeBonus timeBonus) {
@@ -43,8 +43,8 @@ public class StatsValue {
     public static final class Builder {
 
         private Long id;
-        private int amount;
-        private TimeBonus timeBonus;
+        private int amount = 1;
+        private TimeBonus timeBonus = TimeBonus.Builder.aTimeBonus().build();
 
         private Builder() {
         }

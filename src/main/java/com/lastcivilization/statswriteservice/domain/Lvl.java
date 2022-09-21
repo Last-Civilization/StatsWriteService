@@ -40,7 +40,7 @@ class Lvl {
 
         private Long id;
         private int current = 1;
-        private int experience = 0;
+        private int experience;
 
         private Builder() {
         }

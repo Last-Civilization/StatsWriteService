@@ -13,6 +13,7 @@ class BalanceTests {
 
     private void initUpdateLvl() {
         System.out.println(lvl +":" +getExp(lvl));
+        lvl++;
     }
 
     private int getExp(int lvl) {

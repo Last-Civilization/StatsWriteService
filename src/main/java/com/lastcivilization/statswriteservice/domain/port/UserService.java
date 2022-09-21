@@ -6,5 +6,4 @@ import com.lastcivilization.statswriteservice.domain.exception.NotEnoughMoneyExc
 public interface UserService {
 
     UserDto getUser(String keycloakId);
-    void getMoneyFromUser(int cost) throws NotEnoughMoneyException;
 }

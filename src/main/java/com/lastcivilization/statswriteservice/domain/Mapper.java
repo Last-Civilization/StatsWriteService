@@ -41,4 +41,39 @@ class Mapper {
                 lvl.getExperience()
         );
     }
+
+    static Stats toDomain(StatsDto statsDto){
+        return Stats.Builder.aStats()
+                .id(statsDto.id())
+                .lvl(toDomain(statsDto.lvl()))
+                .damage(toDomain(statsDto.damage()))
+                .strength(toDomain(statsDto.strength()))
+                .dexterity(toDomain(statsDto.dexterity()))
+                .defense(toDomain(statsDto.defense()))
+                .build();
+    }
+
+    private static StatsValue toDomain(StatsValueDto statsValueDto) {
+        return StatsValue.Builder.aStatsValue()
+                .id(statsValueDto.id())
+                .amount(statsValueDto.amount())
+                .timeBonus(toDomain(statsValueDto.timeBonus()))
+                .build();
+    }
+
+    private static TimeBonus toDomain(TimeBonusDto timeBonus) {
+        return TimeBonus.Builder.aTimeBonus()
+                .id(timeBonus.id())
+                .endDate(timeBonus.endDate())
+                .amount(timeBonus.amount())
+                .build();
+    }
+
+    private static Lvl toDomain(LvlDto lvlDto) {
+        return Lvl.Builder.aLvl()
+                .id(lvlDto.id())
+                .current(lvlDto.current())
+                .experience(lvlDto.experience())
+                .build();
+    }
 }

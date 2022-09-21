@@ -6,7 +6,7 @@ class TimeBonus {
 
     private Long id;
     private LocalDateTime endDate;
-    private int amount = 0;
+    private int amount;
 
     public TimeBonus(Long id, LocalDateTime endDate, int amount) {
         this.id = id;
@@ -41,7 +41,7 @@ class TimeBonus {
     public static final class Builder {
 
         private Long id;
-        private LocalDateTime endDate;
+        private LocalDateTime endDate = LocalDateTime.now();
         private int amount;
 
         private Builder() {
