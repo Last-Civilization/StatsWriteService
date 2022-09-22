@@ -19,7 +19,7 @@ import java.util.Optional;
 @Configuration
 @EntityScan("com.lastcivilization.statswriteservice.infrastructure.database")
 @EnableJpaRepositories("com.lastcivilization.statswriteservice.infrastructure.database")
-@ComponentScan("com.lastcivilization.statswriteservice.infrastructure")
+@ComponentScan("com.lastcivilization.statswriteservice")
 class BeanConfiguration {
 
     @Bean

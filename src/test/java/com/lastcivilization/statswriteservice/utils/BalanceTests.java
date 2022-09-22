@@ -1,4 +1,4 @@
-package com.lastcivilization.statswriteservice;
+package com.lastcivilization.statswriteservice.utils;
 
 import org.junit.jupiter.api.Test;
 
