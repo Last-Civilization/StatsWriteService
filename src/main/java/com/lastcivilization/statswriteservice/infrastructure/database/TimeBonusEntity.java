@@ -25,7 +25,6 @@ class TimeBonusEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    @Column(name = "end_date")
     private LocalDateTime endDate;
     private int amount;
 }
