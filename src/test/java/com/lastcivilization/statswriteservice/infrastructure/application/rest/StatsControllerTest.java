@@ -3,9 +3,7 @@ package com.lastcivilization.statswriteservice.infrastructure.application.rest;
 import com.lastcivilization.statswriteservice.utils.IntegrationBaseClass;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,10 +35,33 @@ class StatsControllerTest extends IntegrationBaseClass {
     }
 
     @Test
-    void experienceUp() {
+    void shouldExperienceUp() throws Exception {
+        //given
+        statsCreator.resetTestStatsDetails();
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(patch("/stats/1/experiences/100"));
+        //then
+        experienceUpResult.andExpect(status().isOk())
+                .andExpect(jsonPath("$.current").value(1))
+                .andExpect(jsonPath("$.experience").value(100));
+    }
+
+    @Test
+    void shouldReturnStatsNotFoundStatusWhileExperienceUpping() throws Exception {
         //given
         //when
+        ResultActions experienceUpResult = mockMvc.perform(patch("/stats/2/experiences/100"));
         //then
+        experienceUpResult.andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldReturnUserNotFoundStatusWhileExperienceUpping() throws Exception {
+        //given
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(patch("/stats/3/experiences/100"));
+        //then
+        experienceUpResult.andExpect(status().isNotFound());
     }
 
     @Test

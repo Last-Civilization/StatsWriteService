@@ -3,6 +3,7 @@ package com.lastcivilization.statswriteservice.infrastructure.application.rest.e
 import com.lastcivilization.statswriteservice.domain.exception.ApplicationException;
 import com.lastcivilization.statswriteservice.domain.exception.NotEnoughMoneyException;
 import com.lastcivilization.statswriteservice.domain.exception.StatsNotFoundException;
+import com.lastcivilization.statswriteservice.domain.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -31,6 +32,12 @@ class RestExceptionHandler {
     @ExceptionHandler(StatsNotFoundException.class)
     @ResponseStatus(NOT_FOUND)
     ErrorEntity handleStatsNotFoundException(StatsNotFoundException exception){
+        return new ErrorEntity(exception.getMessage());
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    ErrorEntity handleUserNotFoundException(UserNotFoundException exception){
         return new ErrorEntity(exception.getMessage());
     }
 }

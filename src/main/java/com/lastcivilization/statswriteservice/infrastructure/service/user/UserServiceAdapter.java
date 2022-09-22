@@ -1,7 +1,10 @@
 package com.lastcivilization.statswriteservice.infrastructure.service.user;
 
 import com.lastcivilization.statswriteservice.domain.dto.UserDto;
+import com.lastcivilization.statswriteservice.domain.exception.ApplicationException;
+import com.lastcivilization.statswriteservice.domain.exception.UserNotFoundException;
 import com.lastcivilization.statswriteservice.domain.port.UserService;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,14 @@ class UserServiceAdapter implements UserService {
 
     @Override
     public UserDto getUser(String keycloakId) {
-        User user = userClient.getUser(keycloakId);
-        return MAPPER.toDto(user);
+        try {
+            User user = userClient.getUser(keycloakId);
+            return MAPPER.toDto(user);
+        } catch (FeignException exception){
+            if(exception.status() == 404){
+                throw new UserNotFoundException(keycloakId);
+            }
+            throw new ApplicationException(exception.getMessage());
+        }
     }
 }
