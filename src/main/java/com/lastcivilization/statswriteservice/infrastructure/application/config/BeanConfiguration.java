@@ -26,39 +26,4 @@ class BeanConfiguration {
     StatsService statsService(StatsRepository statsRepository, UserService userService, PaymentService paymentService){
         return new StatsServiceImp(statsRepository, userService, paymentService);
     }
-
-    @Bean
-    StatsRepository statsRepository(){
-        return new StatsRepository() {
-            @Override
-            public Optional<StatsDto> findById(Long id) {
-                return Optional.empty();
-            }
-
-            @Override
-            public StatsDto save(StatsDto statsDto) {
-                return null;
-            }
-        };
-    }
-
-    @Bean
-    UserService userService(){
-        return new UserService() {
-            @Override
-            public UserDto getUser(String keycloakId) {
-                return null;
-            }
-        };
-    }
-
-    @Bean
-    PaymentService paymentService(){
-        return new PaymentService() {
-            @Override
-            public void chargeAccount(String keycloakId, int cost) throws NotEnoughMoneyException {
-
-            }
-        };
-    }
 }
