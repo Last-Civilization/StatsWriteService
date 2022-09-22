@@ -1,5 +1,6 @@
 package com.lastcivilization.statswriteservice.infrastructure.service.payment;
 
+import com.lastcivilization.statswriteservice.domain.exception.ApplicationException;
 import com.lastcivilization.statswriteservice.domain.exception.NotEnoughMoneyException;
 import com.lastcivilization.statswriteservice.domain.port.PaymentService;
 import feign.Feign;
