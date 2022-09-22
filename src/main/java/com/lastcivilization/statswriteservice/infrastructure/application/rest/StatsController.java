@@ -31,32 +31,32 @@ class StatsController {
         return statsService.experienceUp(keycloakId, amount);
     }
 
-    @PatchMapping("{keycloakId}/strengths")
+    @PatchMapping("/{keycloakId}/strengths")
     List<StatsValueDto> trainStrength(@PathVariable String keycloakId){
         return statsService.trainStrength(keycloakId);
     }
 
-    @PatchMapping("{keycloakId}/dexterity")
+    @PatchMapping("/{keycloakId}/dexterity")
     StatsValueDto trainDexterity(@PathVariable String keycloakId){
         return statsService.trainDexterity(keycloakId);
     }
 
-    @PatchMapping("{keycloakId}/strengths/bonuses/{amount}/times/{time}")
+    @PatchMapping("/{keycloakId}/strengths/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToStrength(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
         return statsService.giveTimeBonusToStrength(keycloakId, amount, time);
     }
 
-    @PatchMapping("{keycloakId}/damages/bonuses/{amount}/times/{time}")
+    @PatchMapping("/{keycloakId}/damages/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToDamage(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
         return statsService.giveTimeBonusToDamage(keycloakId, amount, time);
     }
 
-    @PatchMapping("{keycloakId}/dexterity/bonuses/{amount}/times/{time}")
+    @PatchMapping("/{keycloakId}/dexterity/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToDexterity(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
         return statsService.giveTimeBonusToDexterity(keycloakId, amount, time);
     }
 
-    @PatchMapping("{keycloakId}/defences/bonuses/{amount}/times/{time}")
+    @PatchMapping("/{keycloakId}/defences/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToDefence(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
         return statsService.giveTimeBonusToDefense(keycloakId, amount, time);
     }
