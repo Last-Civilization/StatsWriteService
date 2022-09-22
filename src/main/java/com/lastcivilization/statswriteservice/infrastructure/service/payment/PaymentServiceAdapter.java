@@ -18,11 +18,9 @@ class PaymentServiceAdapter implements PaymentService {
     public void chargeAccount(String keycloakId, int cost) throws NotEnoughMoneyException {
         try{
             paymentClient.chargeAccount(keycloakId, cost);
-        } catch (Exception exception){
-            if(exception instanceof FeignException){
-                if(( (FeignException) exception).status() == 400){
-                    throw new NotEnoughMoneyException(cost);
-                }
+        } catch (FeignException exception){
+            if(exception.status() == 400){
+                throw new NotEnoughMoneyException(cost);
             }
             throw new ApplicationException(exception.getMessage());
         }
