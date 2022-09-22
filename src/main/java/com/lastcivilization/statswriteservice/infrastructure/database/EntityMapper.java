@@ -14,12 +14,6 @@ interface EntityMapper {
     EntityMapper MAPPER = Mappers.getMapper(EntityMapper.class);
 
     StatsDto toDto(StatsEntity statsEntity);
-    StatsValueDto toDto(StatsValueEntity statsEntity);
-    LvlDto toDto(LvlEntity statsEntity);
-    TimeBonusDto toDto(TimeBonusEntity statsEntity);
 
     StatsEntity toEntity(StatsDto statsDto);
-    StatsValueDto toEntity(StatsValueDto statsValueDto);
-    LvlDto toEntity(LvlDto lvlDto);
-    TimeBonusDto toEntity(TimeBonusDto timeBonusDto);
 }
