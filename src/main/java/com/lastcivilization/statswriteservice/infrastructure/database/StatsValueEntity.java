@@ -30,4 +30,5 @@ class StatsValueEntity {
     @OneToOne
     @JoinColumn(name = "time_bonus", referencedColumnName = "id")
     private TimeBonusEntity timeBonus;
+    private String type;
 }

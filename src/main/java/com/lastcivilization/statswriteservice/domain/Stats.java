@@ -70,10 +70,18 @@ class Stats {
 
         private Long id;
         private Lvl lvl = Lvl.Builder.aLvl().build();
-        private StatsValue damage = StatsValue.Builder.aStatsValue().build();
-        private StatsValue strength = StatsValue.Builder.aStatsValue().build();
-        private StatsValue dexterity = StatsValue.Builder.aStatsValue().build();
-        private StatsValue defense = StatsValue.Builder.aStatsValue().build();
+        private StatsValue damage = StatsValue.Builder.aStatsValue()
+                .type(Type.DAMAGE)
+                .build();
+        private StatsValue strength = StatsValue.Builder.aStatsValue()
+                .type(Type.STRENGTH)
+                .build();
+        private StatsValue dexterity = StatsValue.Builder.aStatsValue()
+                .type(Type.DEXTERITY)
+                .build();
+        private StatsValue defense = StatsValue.Builder.aStatsValue()
+                .type(Type.DEFENSE)
+                .build();
 
         private Builder() {
         }

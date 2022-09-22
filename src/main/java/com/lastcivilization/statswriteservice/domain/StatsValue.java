@@ -5,11 +5,13 @@ public class StatsValue {
     private Long id;
     private int amount;
     private TimeBonus timeBonus;
+    private Type type;
 
-    public StatsValue(Long id, int amount, TimeBonus timeBonus) {
+    public StatsValue(Long id, int amount, TimeBonus timeBonus, Type type) {
         this.id = id;
         this.amount = amount;
         this.timeBonus = timeBonus;
+        this.type = type;
     }
 
     public Long getId() {
@@ -36,8 +38,12 @@ public class StatsValue {
         this.timeBonus = timeBonus;
     }
 
-    public int withBonus(){
-        return amount + (amount * (timeBonus.getAmount() / 100));
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public static final class Builder {
@@ -45,6 +51,8 @@ public class StatsValue {
         private Long id;
         private int amount = 1;
         private TimeBonus timeBonus = TimeBonus.Builder.aTimeBonus().build();
+
+        private Type type;
 
         private Builder() {
         }
@@ -68,8 +76,13 @@ public class StatsValue {
             return this;
         }
 
+        public Builder type(Type type){
+            this.type = type;
+            return this;
+        }
+
         public StatsValue build() {
-            return new StatsValue(id, amount, timeBonus);
+            return new StatsValue(id, amount, timeBonus, type);
         }
     }
 }

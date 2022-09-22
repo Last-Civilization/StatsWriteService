@@ -19,10 +19,12 @@ class Mapper {
     }
 
     private static StatsValueDto toDto(StatsValue statsValue) {
+        Type type = statsValue.getType();
         return new StatsValueDto(
                 statsValue.getId(),
                 statsValue.getAmount(),
-                toDto(statsValue.getTimeBonus())
+                toDto(statsValue.getTimeBonus()),
+                type.toString()
         );
     }
 
@@ -58,6 +60,7 @@ class Mapper {
                 .id(statsValueDto.id())
                 .amount(statsValueDto.amount())
                 .timeBonus(toDomain(statsValueDto.timeBonus()))
+                .type(Type.valueOf(statsValueDto.type()))
                 .build();
     }
 
