@@ -3,6 +3,7 @@ package com.lastcivilization.statswriteservice;
 import org.junit.jupiter.api.Test;
 
 class BalanceTests {
+
     int lvl = 1;
     @Test
     void testExperienceOnLvlNeed() {
