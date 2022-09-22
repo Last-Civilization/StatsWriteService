@@ -92,7 +92,6 @@ databaseChangeLog:
                   type: VARCHAR
                   constraints:
                     nullable: false
-                    unique: true
         - createTable:
             tableName: stats_value_time_bonus
             columns:

@@ -5,7 +5,7 @@ import com.lastcivilization.statswriteservice.domain.dto.StatsDto;
 import com.lastcivilization.statswriteservice.domain.dto.StatsValueDto;
 import com.lastcivilization.statswriteservice.domain.port.StatsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,37 +25,37 @@ class StatsController {
         return statsService.createStats();
     }
 
-    @PatchMapping("/{keycloakId}/experiences/{amount}")
+    @PutMapping("/{keycloakId}/experiences/{amount}")
     LvlDto experienceUp(@PathVariable String keycloakId, @PathVariable int amount){
         return statsService.experienceUp(keycloakId, amount);
     }
 
-    @PatchMapping("/{keycloakId}/strengths")
+    @PutMapping("/{keycloakId}/strengths")
     List<StatsValueDto> trainStrength(@PathVariable String keycloakId){
         return statsService.trainStrength(keycloakId);
     }
 
-    @PatchMapping("/{keycloakId}/dexterity")
+    @PutMapping("/{keycloakId}/dexterity")
     StatsValueDto trainDexterity(@PathVariable String keycloakId){
         return statsService.trainDexterity(keycloakId);
     }
 
-    @PatchMapping("/{keycloakId}/strengths/bonuses/{amount}/times/{time}")
+    @PutMapping("/{keycloakId}/strengths/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToStrength(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
         return statsService.addTimeBonusToStrength(keycloakId, amount, time);
     }
 
-    @PatchMapping("/{keycloakId}/damages/bonuses/{amount}/times/{time}")
+    @PutMapping("/{keycloakId}/damages/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToDamage(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
         return statsService.addTimeBonusToDamage(keycloakId, amount, time);
     }
 
-    @PatchMapping("/{keycloakId}/dexterity/bonuses/{amount}/times/{time}")
+    @PutMapping("/{keycloakId}/dexterity/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToDexterity(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
         return statsService.addTimeBonusToDexterity(keycloakId, amount, time);
     }
 
-    @PatchMapping("/{keycloakId}/defences/bonuses/{amount}/times/{time}")
+    @PutMapping("/{keycloakId}/defences/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToDefence(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
         return statsService.addTimeBonusToDefense(keycloakId, amount, time);
     }

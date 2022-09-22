@@ -39,7 +39,7 @@ class StatsControllerTest extends IntegrationBaseClass {
         //given
         statsCreator.resetTestStatsDetails();
         //when
-        ResultActions experienceUpResult = mockMvc.perform(patch("/stats/1/experiences/100"));
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/experiences/100"));
         //then
         experienceUpResult.andExpect(status().isOk())
                 .andExpect(jsonPath("$.current").value(1))
@@ -50,7 +50,7 @@ class StatsControllerTest extends IntegrationBaseClass {
     void shouldReturnStatsNotFoundStatusWhileExperienceUpping() throws Exception {
         //given
         //when
-        ResultActions experienceUpResult = mockMvc.perform(patch("/stats/2/experiences/100"));
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/2/experiences/100"));
         //then
         experienceUpResult.andExpect(status().isNotFound());
     }
@@ -59,16 +59,23 @@ class StatsControllerTest extends IntegrationBaseClass {
     void shouldReturnUserNotFoundStatusWhileExperienceUpping() throws Exception {
         //given
         //when
-        ResultActions experienceUpResult = mockMvc.perform(patch("/stats/3/experiences/100"));
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/3/experiences/100"));
         //then
         experienceUpResult.andExpect(status().isNotFound());
     }
 
     @Test
-    void trainStrength() {
+    void shouldTrainStrength() throws Exception {
         //given
+        statsCreator.resetTestStatsDetails();
         //when
+        ResultActions trainStrengthResult = mockMvc.perform(put("/stats/1/strengths"));
         //then
+        trainStrengthResult.andExpect(status().isOk())
+                .andExpect(jsonPath("[0].amount").value(2))
+                .andExpect(jsonPath("[0].type").value("STRENGTH"))
+                .andExpect(jsonPath("[1].amount").value(2))
+                .andExpect(jsonPath("[1].type").value("DAMAGE"));
     }
 
     @Test
