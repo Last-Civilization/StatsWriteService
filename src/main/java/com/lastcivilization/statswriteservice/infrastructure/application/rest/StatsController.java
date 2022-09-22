@@ -4,7 +4,6 @@ import com.lastcivilization.statswriteservice.domain.dto.LvlDto;
 import com.lastcivilization.statswriteservice.domain.dto.StatsDto;
 import com.lastcivilization.statswriteservice.domain.dto.StatsValueDto;
 import com.lastcivilization.statswriteservice.domain.port.StatsService;
-import com.lastcivilization.statswriteservice.domain.port.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,21 +42,21 @@ class StatsController {
 
     @PatchMapping("/{keycloakId}/strengths/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToStrength(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
-        return statsService.giveTimeBonusToStrength(keycloakId, amount, time);
+        return statsService.addTimeBonusToStrength(keycloakId, amount, time);
     }
 
     @PatchMapping("/{keycloakId}/damages/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToDamage(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
-        return statsService.giveTimeBonusToDamage(keycloakId, amount, time);
+        return statsService.addTimeBonusToDamage(keycloakId, amount, time);
     }
 
     @PatchMapping("/{keycloakId}/dexterity/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToDexterity(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
-        return statsService.giveTimeBonusToDexterity(keycloakId, amount, time);
+        return statsService.addTimeBonusToDexterity(keycloakId, amount, time);
     }
 
     @PatchMapping("/{keycloakId}/defences/bonuses/{amount}/times/{time}")
     StatsValueDto giveTimeBonusToDefence(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
-        return statsService.giveTimeBonusToDefense(keycloakId, amount, time);
+        return statsService.addTimeBonusToDefense(keycloakId, amount, time);
     }
 }

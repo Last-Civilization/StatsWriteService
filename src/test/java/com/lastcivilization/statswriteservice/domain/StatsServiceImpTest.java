@@ -197,7 +197,7 @@ class StatsServiceImpTest {
         when(statsRepository.findById(anyLong())).thenReturn(Optional.of(statsDto));
         doAnswer(invocationOnMock -> invocationOnMock.getArgument(0)).when(statsRepository).save(any(StatsDto.class));
         //when
-        StatsValueDto statsValueDto = underTest.giveTimeBonusToStrength(anyString(), 1, 1);
+        StatsValueDto statsValueDto = underTest.addTimeBonusToStrength(anyString(), 1, 1);
         //then
         TimeBonusDto timeBonusDto = statsValueDto.timeBonus();
         assertThat(statsValueDto.type()).isEqualTo("STRENGTH");
@@ -213,7 +213,7 @@ class StatsServiceImpTest {
         when(statsRepository.findById(anyLong())).thenReturn(Optional.of(statsDto));
         doAnswer(invocationOnMock -> invocationOnMock.getArgument(0)).when(statsRepository).save(any(StatsDto.class));
         //when
-        StatsValueDto statsValueDto = underTest.giveTimeBonusToDamage(anyString(), 1, 1);
+        StatsValueDto statsValueDto = underTest.addTimeBonusToDamage(anyString(), 1, 1);
         //then
         TimeBonusDto timeBonusDto = statsValueDto.timeBonus();
         assertThat(statsValueDto.type()).isEqualTo("DAMAGE");
@@ -229,7 +229,7 @@ class StatsServiceImpTest {
         when(statsRepository.findById(anyLong())).thenReturn(Optional.of(statsDto));
         doAnswer(invocationOnMock -> invocationOnMock.getArgument(0)).when(statsRepository).save(any(StatsDto.class));
         //when
-        StatsValueDto statsValueDto = underTest.giveTimeBonusToDexterity(anyString(), 1, 1);
+        StatsValueDto statsValueDto = underTest.addTimeBonusToDexterity(anyString(), 1, 1);
         //then
         TimeBonusDto timeBonusDto = statsValueDto.timeBonus();
         assertThat(statsValueDto.type()).isEqualTo("DEXTERITY");
@@ -245,7 +245,7 @@ class StatsServiceImpTest {
         when(statsRepository.findById(anyLong())).thenReturn(Optional.of(statsDto));
         doAnswer(invocationOnMock -> invocationOnMock.getArgument(0)).when(statsRepository).save(any(StatsDto.class));
         //when
-        StatsValueDto statsValueDto = underTest.giveTimeBonusToDefense(anyString(), 1, 1);
+        StatsValueDto statsValueDto = underTest.addTimeBonusToDefense(anyString(), 1, 1);
         //then
         TimeBonusDto timeBonusDto = statsValueDto.timeBonus();
         assertThat(statsValueDto.type()).isEqualTo("DEFENSE");

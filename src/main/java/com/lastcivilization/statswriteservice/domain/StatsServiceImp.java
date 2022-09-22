@@ -106,7 +106,7 @@ public class StatsServiceImp implements StatsService {
     }
 
     @Override
-    public StatsValueDto giveTimeBonusToStrength(String keycloakId, int amount, int minutes) {
+    public StatsValueDto addTimeBonusToStrength(String keycloakId, int amount, int minutes) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         StatsValue strength = stats.getStrength();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);
@@ -123,7 +123,7 @@ public class StatsServiceImp implements StatsService {
     }
 
     @Override
-    public StatsValueDto giveTimeBonusToDamage(String keycloakId, int amount, int minutes) {
+    public StatsValueDto addTimeBonusToDamage(String keycloakId, int amount, int minutes) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         StatsValue damage = stats.getDamage();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);
@@ -133,7 +133,7 @@ public class StatsServiceImp implements StatsService {
     }
 
     @Override
-    public StatsValueDto giveTimeBonusToDexterity(String keycloakId, int amount, int minutes) {
+    public StatsValueDto addTimeBonusToDexterity(String keycloakId, int amount, int minutes) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         StatsValue dexterity = stats.getDexterity();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);
@@ -150,7 +150,7 @@ public class StatsServiceImp implements StatsService {
     }
 
     @Override
-    public StatsValueDto giveTimeBonusToDefense(String keycloakId, int amount, int minutes) {
+    public StatsValueDto addTimeBonusToDefense(String keycloakId, int amount, int minutes) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         StatsValue defense = stats.getDefense();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);

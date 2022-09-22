@@ -12,8 +12,8 @@ public interface StatsService {
     LvlDto experienceUp(String keycloakId, int experience);
     List<StatsValueDto> trainStrength(String keycloakId);
     StatsValueDto trainDexterity(String keycloakId);
-    StatsValueDto giveTimeBonusToStrength(String keycloakId, int amount, int minutes);
-    StatsValueDto giveTimeBonusToDamage(String keycloakId, int amount, int minutes);
-    StatsValueDto giveTimeBonusToDexterity(String keycloakId, int amount, int minutes);
-    StatsValueDto giveTimeBonusToDefense(String keycloakId, int amount, int minutes);
+    StatsValueDto addTimeBonusToStrength(String keycloakId, int amount, int minutes);
+    StatsValueDto addTimeBonusToDamage(String keycloakId, int amount, int minutes);
+    StatsValueDto addTimeBonusToDexterity(String keycloakId, int amount, int minutes);
+    StatsValueDto addTimeBonusToDefense(String keycloakId, int amount, int minutes);
 }
