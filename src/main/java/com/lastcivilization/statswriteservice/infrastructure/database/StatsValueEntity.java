@@ -28,7 +28,7 @@ class StatsValueEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int amount;
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "time_bonus", referencedColumnName = "id")
     private TimeBonusEntity timeBonus;
     private String type;
