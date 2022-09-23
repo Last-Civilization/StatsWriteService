@@ -18,7 +18,7 @@ class StatsControllerTest extends IntegrationBaseClass {
 
     @Test
     void shouldCreateStats() throws Exception {
-        //given
+        //Addn
         //when
         ResultActions createResult = mockMvc.perform(post("/stats"));
         //then
@@ -43,7 +43,7 @@ class StatsControllerTest extends IntegrationBaseClass {
 
     @Test
     void shouldExperienceUp() throws Exception {
-        //given
+        //Addn
         statsCreator.resetTestStatsDetails();
         //when
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/experiences/100"));
@@ -56,7 +56,7 @@ class StatsControllerTest extends IntegrationBaseClass {
 
     @Test
     void shouldLvlUp() throws Exception {
-        //given
+        //Addn
         statsCreator.resetTestStatsDetails();
         //when
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/experiences/101"));
@@ -69,7 +69,7 @@ class StatsControllerTest extends IntegrationBaseClass {
 
     @Test
     void shouldReturnStatsNotFoundStatusWhileExperienceUpping() throws Exception {
-        //given
+        //Addn
         //when
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/2/experiences/100"));
         //then
@@ -78,7 +78,7 @@ class StatsControllerTest extends IntegrationBaseClass {
 
     @Test
     void shouldReturnUserNotFoundStatusWhileExperienceUpping() throws Exception {
-        //given
+        //Addn
         //when
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/3/experiences/100"));
         //then
@@ -87,7 +87,7 @@ class StatsControllerTest extends IntegrationBaseClass {
 
     @Test
     void shouldTrainStrength() throws Exception {
-        //given
+        //Addn
         //when
         ResultActions trainStrengthResult = mockMvc.perform(put("/stats/1/strengths"));
         //then
@@ -100,7 +100,7 @@ class StatsControllerTest extends IntegrationBaseClass {
 
     @Test
     void shouldReturnStatsNotFoundStatusWhileTrainingStrength() throws Exception {
-        //given
+        //Addn
         //when
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/2/strengths"));
         //then
@@ -109,7 +109,7 @@ class StatsControllerTest extends IntegrationBaseClass {
 
     @Test
     void shouldReturnUserNotFoundStatusWhileTrainingStrength() throws Exception {
-        //given
+        //Addn
         //when
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/3/strengths"));
         //then
@@ -118,7 +118,7 @@ class StatsControllerTest extends IntegrationBaseClass {
 
     @Test
     void shouldTrainDexterity() throws Exception {
-        //given
+        //Addn
         //when
         ResultActions trainStrengthResult = mockMvc.perform(put("/stats/1/dexterity"));
         //then
@@ -129,7 +129,7 @@ class StatsControllerTest extends IntegrationBaseClass {
 
     @Test
     void shouldReturnStatsNotFoundStatusWhileTrainingDexterity() throws Exception {
-        //given
+        //Addn
         //when
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/2/dexterity"));
         //then
@@ -138,7 +138,7 @@ class StatsControllerTest extends IntegrationBaseClass {
 
     @Test
     void shouldReturnUserNotFoundStatusWhileTrainingDexterity() throws Exception {
-        //given
+        //Addn
         //when
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/3/dexterity"));
         //then
@@ -146,30 +146,122 @@ class StatsControllerTest extends IntegrationBaseClass {
     }
 
     @Test
-    void giveTimeBonusToStrength() {
-        //given
+    void shouldAddTimeBonusToStrength() throws Exception {
+        //Addn
         //when
+        ResultActions addTimeBonusResult = mockMvc.perform(put("/stats/1/strengths/bonuses/1/times/1"));
         //then
+        addTimeBonusResult.andExpect(status().isOk())
+                .andExpect(jsonPath("$.timeBonus.endDate").exists())
+                .andExpect(jsonPath("$.timeBonus.amount").value(1))
+                .andExpect(jsonPath("$.total").value(1));
     }
 
     @Test
-    void giveTimeBonusToDamage() {
-        //given
+    void shouldReturnStatsNotFoundStatusWhileAddingTimeBonusToStrength() throws Exception {
+        //Addn
         //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/2/strengths/bonuses/1/times/1"));
         //then
+        experienceUpResult.andExpect(status().isNotFound());
     }
 
     @Test
-    void giveTimeBonusToDexterity() {
-        //given
+    void shouldReturnUserNotFoundStatusWhileAddingTimeBonusToStrength() throws Exception {
+        //Addn
         //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/3/strengths/bonuses/1/times/1"));
         //then
+        experienceUpResult.andExpect(status().isNotFound());
     }
 
     @Test
-    void giveTimeBonusToDefence() {
-        //given
+    void shouldAddTimeBonusToDamage() throws Exception {
+        //Addn
         //when
+        ResultActions addTimeBonusResult = mockMvc.perform(put("/stats/1/damages/bonuses/1/times/1"));
         //then
+        addTimeBonusResult.andExpect(status().isOk())
+                .andExpect(jsonPath("$.timeBonus.endDate").exists())
+                .andExpect(jsonPath("$.timeBonus.amount").value(1))
+                .andExpect(jsonPath("$.total").value(1));
+    }
+
+    @Test
+    void shouldReturnStatsNotFoundStatusWhileAddingTimeBonusToDamage() throws Exception {
+        //Addn
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/2/damages/bonuses/1/times/1"));
+        //then
+        experienceUpResult.andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldReturnUserNotFoundStatusWhileAddingTimeBonusToDamage() throws Exception {
+        //Addn
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/3/damages/bonuses/1/times/1"));
+        //then
+        experienceUpResult.andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldAddTimeBonusToDexterity() throws Exception {
+        //Addn
+        //when
+        ResultActions addTimeBonusResult = mockMvc.perform(put("/stats/1/dexterity/bonuses/1/times/1"));
+        //then
+        addTimeBonusResult.andExpect(status().isOk())
+                .andExpect(jsonPath("$.timeBonus.endDate").exists())
+                .andExpect(jsonPath("$.timeBonus.amount").value(1))
+                .andExpect(jsonPath("$.total").value(1));
+    }
+
+    @Test
+    void shouldReturnStatsNotFoundStatusWhileAddingTimeBonusToDexterity() throws Exception {
+        //Addn
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/2/dexterity/bonuses/1/times/1"));
+        //then
+        experienceUpResult.andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldReturnUserNotFoundStatusWhileAddingTimeBonusToDexterity() throws Exception {
+        //Addn
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/3/dexterity/bonuses/1/times/1"));
+        //then
+        experienceUpResult.andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldAddTimeBonusToDefence() throws Exception {
+        //Addn
+        //when
+        ResultActions addTimeBonusResult = mockMvc.perform(put("/stats/1/defences/bonuses/1/times/1"));
+        //then
+        addTimeBonusResult.andExpect(status().isOk())
+                .andExpect(jsonPath("$.timeBonus.endDate").exists())
+                .andExpect(jsonPath("$.timeBonus.amount").value(1))
+                .andExpect(jsonPath("$.total").value(1));
+    }
+
+    @Test
+    void shouldReturnStatsNotFoundStatusWhileAddingTimeBonusToDefence() throws Exception {
+        //Addn
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/2/defences/bonuses/1/times/1"));
+        //then
+        experienceUpResult.andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldReturnUserNotFoundStatusWhileAddingTimeBonusToDefence() throws Exception {
+        //Addn
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/3/defences/bonuses/1/times/1"));
+        //then
+        experienceUpResult.andExpect(status().isNotFound());
     }
 }

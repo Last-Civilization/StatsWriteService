@@ -207,6 +207,7 @@ class StatsServiceImpTest {
         //then
         TimeBonusDto timeBonusDto = statsValueDto.timeBonus();
         assertThat(statsValueDto.type()).isEqualTo("STRENGTH");
+        assertThat(statsValueDto.total()).isEqualTo(1);
         assertThat(timeBonusDto.amount()).isEqualTo(1);
         assertThat(timeBonusDto.endDate().isAfter(LocalDateTime.now())).isTrue();
     }
@@ -223,6 +224,7 @@ class StatsServiceImpTest {
         //then
         TimeBonusDto timeBonusDto = statsValueDto.timeBonus();
         assertThat(statsValueDto.type()).isEqualTo("DAMAGE");
+        assertThat(statsValueDto.total()).isEqualTo(1);
         assertThat(timeBonusDto.amount()).isEqualTo(1);
         assertThat(timeBonusDto.endDate().isAfter(LocalDateTime.now())).isTrue();
     }
@@ -239,6 +241,7 @@ class StatsServiceImpTest {
         //then
         TimeBonusDto timeBonusDto = statsValueDto.timeBonus();
         assertThat(statsValueDto.type()).isEqualTo("DEXTERITY");
+        assertThat(statsValueDto.total()).isEqualTo(1);
         assertThat(timeBonusDto.amount()).isEqualTo(1);
         assertThat(timeBonusDto.endDate().isAfter(LocalDateTime.now())).isTrue();
     }
@@ -255,6 +258,7 @@ class StatsServiceImpTest {
         //then
         TimeBonusDto timeBonusDto = statsValueDto.timeBonus();
         assertThat(statsValueDto.type()).isEqualTo("DEFENSE");
+        assertThat(statsValueDto.total()).isEqualTo(1);
         assertThat(timeBonusDto.amount()).isEqualTo(1);
         assertThat(timeBonusDto.endDate().isAfter(LocalDateTime.now())).isTrue();
     }
