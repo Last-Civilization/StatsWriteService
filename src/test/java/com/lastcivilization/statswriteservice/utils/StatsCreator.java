@@ -71,7 +71,8 @@ public class StatsCreator {
                                 0
                         ),
                         "DEFENSE"
-                )
+                ),
+                100
         );
     }
 }

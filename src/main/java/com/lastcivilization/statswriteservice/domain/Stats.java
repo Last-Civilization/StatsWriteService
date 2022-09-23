@@ -8,14 +8,16 @@ class Stats {
     private StatsValue strength;
     private StatsValue dexterity;
     private StatsValue defense;
+    private int health;
 
-    public Stats(Long id, Lvl lvl, StatsValue damage, StatsValue strength, StatsValue dexterity, StatsValue defense) {
+    public Stats(Long id, Lvl lvl, StatsValue damage, StatsValue strength, StatsValue dexterity, StatsValue defense, int health) {
         this.id = id;
         this.lvl = lvl;
         this.damage = damage;
         this.strength = strength;
         this.dexterity = dexterity;
         this.defense = defense;
+        this.health = health;
     }
 
     public Long getId() {
@@ -66,6 +68,14 @@ class Stats {
         this.defense = defense;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public static final class Builder {
 
         private Long id;
@@ -82,6 +92,8 @@ class Stats {
         private StatsValue defense = StatsValue.Builder.aStatsValue()
                 .type(Type.DEFENSE)
                 .build();
+
+        private int health = 100;
 
         private Builder() {
         }
@@ -120,8 +132,13 @@ class Stats {
             return this;
         }
 
+        public Builder health(int health){
+            this.health = health;
+            return this;
+        }
+
         public Stats build() {
-            return new Stats(id, lvl, damage, strength, dexterity, defense);
+            return new Stats(id, lvl, damage, strength, dexterity, defense, health);
         }
     }
 }

@@ -26,7 +26,7 @@ class StatsController {
     }
 
     @PutMapping("/{keycloakId}/experiences/{amount}")
-    LvlDto experienceUp(@PathVariable String keycloakId, @PathVariable int amount){
+    StatsDto experienceUp(@PathVariable String keycloakId, @PathVariable int amount){
         return statsService.experienceUp(keycloakId, amount);
     }
 

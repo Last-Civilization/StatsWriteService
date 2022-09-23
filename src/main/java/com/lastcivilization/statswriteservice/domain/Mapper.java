@@ -14,7 +14,8 @@ class Mapper {
                 toDto(stats.getDamage()),
                 toDto(stats.getStrength()),
                 toDto(stats.getDexterity()),
-                toDto(stats.getDefense())
+                toDto(stats.getDefense()),
+                stats.getHealth()
         );
     }
 
@@ -52,6 +53,7 @@ class Mapper {
                 .strength(toDomain(statsDto.strength()))
                 .dexterity(toDomain(statsDto.dexterity()))
                 .defense(toDomain(statsDto.defense()))
+                .health(statsDto.health())
                 .build();
     }
 

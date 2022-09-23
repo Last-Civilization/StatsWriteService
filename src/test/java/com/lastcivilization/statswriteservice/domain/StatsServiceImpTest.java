@@ -50,6 +50,7 @@ class StatsServiceImpTest {
         //when
         StatsDto statsDto = underTest.createStats();
         //then
+        assertThat(statsDto.health()).isEqualTo(100);
         assertThat(statsDto.lvl().current()).isEqualTo(1);
         assertThat(statsDto.lvl().experience()).isEqualTo(0);
         assertThat(statsDto.damage().amount()).isEqualTo(1);
@@ -73,29 +74,33 @@ class StatsServiceImpTest {
     @Test
     void shouldExperienceUp() {
         //given
-        StatsDto statsDto = getTestStats();
+        StatsDto testStatsDto = getTestStats();
         when(userService.getUser(anyString())).thenReturn(getTestUser());
-        when(statsRepository.findById(anyLong())).thenReturn(Optional.of(statsDto));
+        when(statsRepository.findById(anyLong())).thenReturn(Optional.of(testStatsDto));
         doAnswer(invocationOnMock -> invocationOnMock.getArgument(0)).when(statsRepository).save(any(StatsDto.class));
         //when
-        LvlDto lvlDto = underTest.experienceUp(anyString(), 100);
+        StatsDto statsDto = underTest.experienceUp(anyString(), 100);
         //then
+        LvlDto lvlDto = statsDto.lvl();
         assertThat(lvlDto.experience()).isEqualTo(100);
         assertThat(lvlDto.current()).isEqualTo(1);
+        assertThat(statsDto.health()).isEqualTo(100);
     }
 
     @Test
     void shouldLvlUp() {
         //given
-        StatsDto statsDto = getTestStats();
+        StatsDto testStatsDto = getTestStats();
         when(userService.getUser(anyString())).thenReturn(getTestUser());
-        when(statsRepository.findById(anyLong())).thenReturn(Optional.of(statsDto));
+        when(statsRepository.findById(anyLong())).thenReturn(Optional.of(testStatsDto));
         doAnswer(invocationOnMock -> invocationOnMock.getArgument(0)).when(statsRepository).save(any(StatsDto.class));
         //when
-        LvlDto lvlDto = underTest.experienceUp(anyString(), 101);
+        StatsDto statsDto = underTest.experienceUp(anyString(), 101);
         //then
+        LvlDto lvlDto = statsDto.lvl();
         assertThat(lvlDto.experience()).isEqualTo(0);
         assertThat(lvlDto.current()).isEqualTo(2);
+        assertThat(statsDto.health()).isEqualTo(120);
     }
 
     @NotNull
@@ -153,7 +158,8 @@ class StatsServiceImpTest {
                                 0
                         ),
                         "DEFENSE"
-                )
+                ),
+                100
         );
     }
 

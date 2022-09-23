@@ -1,6 +1,5 @@
 package com.lastcivilization.statswriteservice.domain;
 
-import com.lastcivilization.statswriteservice.domain.dto.LvlDto;
 import com.lastcivilization.statswriteservice.domain.dto.StatsDto;
 import com.lastcivilization.statswriteservice.domain.dto.StatsValueDto;
 import com.lastcivilization.statswriteservice.domain.dto.UserDto;
@@ -42,7 +41,7 @@ public class StatsServiceImp implements StatsService {
     }
 
     @Override
-    public LvlDto experienceUp(String keycloakId, int experience) {
+    public StatsDto experienceUp(String keycloakId, int experience) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         Lvl lvl = stats.getLvl();
         int currentLvl = lvl.getCurrent();
@@ -52,9 +51,15 @@ public class StatsServiceImp implements StatsService {
         if(experience > getExperienceToNextLvl(currentLvl)){
             lvl.setExperience(0);
             lvl.setCurrent(++currentLvl);
+            int currentHealth = stats.getHealth();
+            stats.setHealth(getHealthUpdate(currentHealth, currentLvl));
         }
         StatsDto savedStatsDto = statsRepository.save(toDto(stats));
-        return savedStatsDto.lvl();
+        return savedStatsDto;
+    }
+
+    private int getHealthUpdate(int currentHealth, int currentLvl) {
+        return (currentHealth + (10 * currentLvl));
     }
 
     private StatsDto getStatById(long id) {

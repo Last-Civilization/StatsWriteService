@@ -6,5 +6,6 @@ public record StatsDto(
         StatsValueDto damage,
         StatsValueDto strength,
         StatsValueDto dexterity,
-        StatsValueDto defense
+        StatsValueDto defense,
+        int health
 ) {}

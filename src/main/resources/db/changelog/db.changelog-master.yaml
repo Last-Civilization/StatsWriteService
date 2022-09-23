@@ -44,6 +44,11 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
+              - column:
+                  name: health
+                  type: INT
+                  constraints:
+                    nullable: false
         - createTable:
             tableName: stats_lvl
             columns:

@@ -42,4 +42,5 @@ class StatsEntity {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "defense", referencedColumnName = "id")
     private StatsValueEntity defense;
+    private int health;
 }

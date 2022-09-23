@@ -59,4 +59,24 @@ class BalanceTests {
     private int getNextLvlCost() {
         return (toTrain * 10) / 2;
     }
+
+    private int healthLvl = 1;
+    private int currentHealth = 100;
+
+    @Test
+    void testHealthUpdate() {
+        for (int x = 0; x < 50; x++){
+            initHealthUpdate();
+        }
+    }
+
+    private void initHealthUpdate() {
+        System.out.println("HP: "+currentHealth+" LVL: "+healthLvl);
+        healthLvl++;
+        updateHealth();
+    }
+
+    private void updateHealth() {
+        currentHealth = (currentHealth + (10 * healthLvl));
+    }
 }

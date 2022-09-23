@@ -1,6 +1,7 @@
 package com.lastcivilization.statswriteservice.infrastructure.application.rest;
 
 import com.lastcivilization.statswriteservice.utils.IntegrationBaseClass;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -10,6 +11,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class StatsControllerTest extends IntegrationBaseClass {
 
+    @BeforeEach
+    void restTestStats(){
+        statsCreator.resetTestStatsDetails();
+    }
+
     @Test
     void shouldCreateStats() throws Exception {
         //given
@@ -18,6 +24,7 @@ class StatsControllerTest extends IntegrationBaseClass {
         //then
         createResult.andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.health").value(100))
                 .andExpect(jsonPath("$.lvl.current").value(1))
                 .andExpect(jsonPath("$.lvl.experience").value(0))
                 .andExpect(jsonPath("$.damage.amount").value(1))
@@ -42,8 +49,22 @@ class StatsControllerTest extends IntegrationBaseClass {
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/experiences/100"));
         //then
         experienceUpResult.andExpect(status().isOk())
-                .andExpect(jsonPath("$.current").value(1))
-                .andExpect(jsonPath("$.experience").value(100));
+                .andExpect(jsonPath("$.health").value(100))
+                .andExpect(jsonPath("$.lvl.current").value(1))
+                .andExpect(jsonPath("$.lvl.experience").value(100));
+    }
+
+    @Test
+    void shouldLvlUp() throws Exception {
+        //given
+        statsCreator.resetTestStatsDetails();
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/experiences/101"));
+        //then
+        experienceUpResult.andExpect(status().isOk())
+                .andExpect(jsonPath("$.health").value(120))
+                .andExpect(jsonPath("$.lvl.current").value(2))
+                .andExpect(jsonPath("$.lvl.experience").value(0));
     }
 
     @Test
@@ -67,7 +88,6 @@ class StatsControllerTest extends IntegrationBaseClass {
     @Test
     void shouldTrainStrength() throws Exception {
         //given
-        statsCreator.resetTestStatsDetails();
         //when
         ResultActions trainStrengthResult = mockMvc.perform(put("/stats/1/strengths"));
         //then
@@ -79,10 +99,50 @@ class StatsControllerTest extends IntegrationBaseClass {
     }
 
     @Test
-    void trainDexterity() {
+    void shouldReturnStatsNotFoundStatusWhileTrainingStrength() throws Exception {
         //given
         //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/2/strengths"));
         //then
+        experienceUpResult.andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldReturnUserNotFoundStatusWhileTrainingStrength() throws Exception {
+        //given
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/3/strengths"));
+        //then
+        experienceUpResult.andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldTrainDexterity() throws Exception {
+        //given
+        //when
+        ResultActions trainStrengthResult = mockMvc.perform(put("/stats/1/dexterity"));
+        //then
+        trainStrengthResult.andExpect(status().isOk())
+                .andExpect(jsonPath("$.amount").value(2))
+                .andExpect(jsonPath("$.type").value("DEXTERITY"));
+    }
+
+    @Test
+    void shouldReturnStatsNotFoundStatusWhileTrainingDexterity() throws Exception {
+        //given
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/2/dexterity"));
+        //then
+        experienceUpResult.andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldReturnUserNotFoundStatusWhileTrainingDexterity() throws Exception {
+        //given
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/3/dexterity"));
+        //then
+        experienceUpResult.andExpect(status().isNotFound());
     }
 
     @Test
