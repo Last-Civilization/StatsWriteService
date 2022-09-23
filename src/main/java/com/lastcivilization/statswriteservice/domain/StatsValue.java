@@ -1,6 +1,6 @@
 package com.lastcivilization.statswriteservice.domain;
 
-public class StatsValue {
+class StatsValue {
 
     private Long id;
     private int amount;
