@@ -1,6 +1,7 @@
 package com.lastcivilization.statswriteservice.utils;
 
 import com.lastcivilization.statswriteservice.infrastructure.application.StatsWriteServiceApplication;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,5 +34,10 @@ public class IntegrationBaseClass {
         registry.add("spring.datasource.url", () -> "jdbc:tc:postgresql:14-alpine:///test");
         registry.add("eureka.client.register-with-eureka", () -> "false");
         registry.add("eureka.client.fetch-registry", () -> "false");
+    }
+
+    @BeforeEach
+    void restTestStats(){
+        statsCreator.resetTestStatsDetails();
     }
 }

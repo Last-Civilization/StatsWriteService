@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class StatsCreator {
+class StatsCreator {
 
     private final StatsRepository statsRepository;
 
-    public StatsDto resetTestStatsDetails(){
+    StatsDto resetTestStatsDetails(){
         StatsDto statsDto = buildStats();
         return statsRepository.save(statsDto);
     }

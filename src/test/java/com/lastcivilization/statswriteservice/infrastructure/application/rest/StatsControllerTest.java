@@ -11,11 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class StatsControllerTest extends IntegrationBaseClass {
 
-    @BeforeEach
-    void restTestStats(){
-        statsCreator.resetTestStatsDetails();
-    }
-
     @Test
     void shouldCreateStats() throws Exception {
         //Addn
@@ -44,7 +39,6 @@ class StatsControllerTest extends IntegrationBaseClass {
     @Test
     void shouldExperienceUp() throws Exception {
         //Addn
-        statsCreator.resetTestStatsDetails();
         //when
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/experiences/100"));
         //then
@@ -57,7 +51,6 @@ class StatsControllerTest extends IntegrationBaseClass {
     @Test
     void shouldLvlUp() throws Exception {
         //Addn
-        statsCreator.resetTestStatsDetails();
         //when
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/experiences/101"));
         //then
