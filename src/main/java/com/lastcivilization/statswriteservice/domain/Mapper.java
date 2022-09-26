@@ -1,14 +1,14 @@
 package com.lastcivilization.statswriteservice.domain;
 
-import com.lastcivilization.statswriteservice.domain.dto.LvlDto;
-import com.lastcivilization.statswriteservice.domain.dto.StatsDto;
-import com.lastcivilization.statswriteservice.domain.dto.StatsValueDto;
-import com.lastcivilization.statswriteservice.domain.dto.TimeBonusDto;
+import com.lastcivilization.statswriteservice.domain.view.LvlModel;
+import com.lastcivilization.statswriteservice.domain.view.StatsModel;
+import com.lastcivilization.statswriteservice.domain.view.StatsValueModel;
+import com.lastcivilization.statswriteservice.domain.view.TimeBonusModel;
 
 class Mapper {
 
-    static StatsDto toDto(Stats stats){
-        return new StatsDto(
+    static StatsModel toDto(Stats stats){
+        return new StatsModel(
                 stats.getId(),
                 toDto(stats.getLvl()),
                 toDto(stats.getDamage()),
@@ -19,9 +19,9 @@ class Mapper {
         );
     }
 
-    private static StatsValueDto toDto(StatsValue statsValue) {
+    private static StatsValueModel toDto(StatsValue statsValue) {
         Type type = statsValue.getType();
-        return new StatsValueDto(
+        return new StatsValueModel(
                 statsValue.getId(),
                 statsValue.getAmount(),
                 toDto(statsValue.getTimeBonus()),
@@ -29,44 +29,44 @@ class Mapper {
         );
     }
 
-    private static TimeBonusDto toDto(TimeBonus timeBonus) {
-        return new TimeBonusDto(
+    private static TimeBonusModel toDto(TimeBonus timeBonus) {
+        return new TimeBonusModel(
                 timeBonus.getId(),
                 timeBonus.getEndDate(),
                 timeBonus.getAmount()
         );
     }
 
-    private static LvlDto toDto(Lvl lvl) {
-        return new LvlDto(
+    private static LvlModel toDto(Lvl lvl) {
+        return new LvlModel(
                 lvl.getId(),
                 lvl.getCurrent(),
                 lvl.getExperience()
         );
     }
 
-    static Stats toDomain(StatsDto statsDto){
+    static Stats toDomain(StatsModel statsModel){
         return Stats.Builder.aStats()
-                .id(statsDto.id())
-                .lvl(toDomain(statsDto.lvl()))
-                .damage(toDomain(statsDto.damage()))
-                .strength(toDomain(statsDto.strength()))
-                .dexterity(toDomain(statsDto.dexterity()))
-                .defense(toDomain(statsDto.defense()))
-                .health(statsDto.health())
+                .id(statsModel.id())
+                .lvl(toDomain(statsModel.lvl()))
+                .damage(toDomain(statsModel.damage()))
+                .strength(toDomain(statsModel.strength()))
+                .dexterity(toDomain(statsModel.dexterity()))
+                .defense(toDomain(statsModel.defense()))
+                .health(statsModel.health())
                 .build();
     }
 
-    private static StatsValue toDomain(StatsValueDto statsValueDto) {
+    private static StatsValue toDomain(StatsValueModel statsValueModel) {
         return StatsValue.Builder.aStatsValue()
-                .id(statsValueDto.id())
-                .amount(statsValueDto.amount())
-                .timeBonus(toDomain(statsValueDto.timeBonus()))
-                .type(Type.valueOf(statsValueDto.type()))
+                .id(statsValueModel.id())
+                .amount(statsValueModel.amount())
+                .timeBonus(toDomain(statsValueModel.timeBonus()))
+                .type(Type.valueOf(statsValueModel.type()))
                 .build();
     }
 
-    private static TimeBonus toDomain(TimeBonusDto timeBonus) {
+    private static TimeBonus toDomain(TimeBonusModel timeBonus) {
         return TimeBonus.Builder.aTimeBonus()
                 .id(timeBonus.id())
                 .endDate(timeBonus.endDate())
@@ -74,11 +74,11 @@ class Mapper {
                 .build();
     }
 
-    private static Lvl toDomain(LvlDto lvlDto) {
+    private static Lvl toDomain(LvlModel lvlModel) {
         return Lvl.Builder.aLvl()
-                .id(lvlDto.id())
-                .current(lvlDto.current())
-                .experience(lvlDto.experience())
+                .id(lvlModel.id())
+                .current(lvlModel.current())
+                .experience(lvlModel.experience())
                 .build();
     }
 }

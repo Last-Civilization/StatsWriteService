@@ -1,12 +1,11 @@
 package com.lastcivilization.statswriteservice.domain;
 
-import com.lastcivilization.statswriteservice.domain.dto.StatsDto;
-import com.lastcivilization.statswriteservice.domain.dto.StatsValueDto;
-import com.lastcivilization.statswriteservice.domain.dto.UserDto;
+import com.lastcivilization.statswriteservice.domain.view.StatsModel;
+import com.lastcivilization.statswriteservice.domain.view.StatsValueModel;
+import com.lastcivilization.statswriteservice.domain.port.dto.UserDto;
 import com.lastcivilization.statswriteservice.domain.exception.StatsNotFoundException;
 import com.lastcivilization.statswriteservice.domain.port.PaymentService;
 import com.lastcivilization.statswriteservice.domain.port.StatsRepository;
-import com.lastcivilization.statswriteservice.domain.port.StatsService;
 import com.lastcivilization.statswriteservice.domain.port.UserService;
 
 import java.time.LocalDateTime;
@@ -16,32 +15,30 @@ import java.util.List;
 import static com.lastcivilization.statswriteservice.domain.Mapper.toDomain;
 import static com.lastcivilization.statswriteservice.domain.Mapper.toDto;
 
-public class StatsServiceImp implements StatsService {
+public class StatsService {
 
     private final StatsRepository statsRepository;
     private final UserService userService;
     private final PaymentService paymentService;
 
-    public StatsServiceImp(StatsRepository statsRepository, UserService userService, PaymentService paymentService) {
+    public StatsService(StatsRepository statsRepository, UserService userService, PaymentService paymentService) {
         this.statsRepository = statsRepository;
         this.userService = userService;
         this.paymentService = paymentService;
     }
 
-    @Override
-    public StatsDto createStats() {
+    public StatsModel createStats() {
         Stats stats = buildStats();
-        StatsDto statsDto = toDto(stats);
-        StatsDto savedStatsDto = statsRepository.save(statsDto);
-        return savedStatsDto;
+        StatsModel statsModel = toDto(stats);
+        StatsModel savedStatsModel = statsRepository.save(statsModel);
+        return savedStatsModel;
     }
 
     private Stats buildStats() {
         return Stats.Builder.aStats().build();
     }
 
-    @Override
-    public StatsDto experienceUp(String keycloakId, int experience) {
+    public StatsModel experienceUp(String keycloakId, int experience) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         Lvl lvl = stats.getLvl();
         int currentLvl = lvl.getCurrent();
@@ -54,15 +51,15 @@ public class StatsServiceImp implements StatsService {
             int currentHealth = stats.getHealth();
             stats.setHealth(getHealthUpdate(currentHealth, currentLvl));
         }
-        StatsDto savedStatsDto = statsRepository.save(toDto(stats));
-        return savedStatsDto;
+        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        return savedStatsModel;
     }
 
     private int getHealthUpdate(int currentHealth, int currentLvl) {
         return (currentHealth + (10 * currentLvl));
     }
 
-    private StatsDto getStatById(long id) {
+    private StatsModel getStatById(long id) {
         return statsRepository.findById(id)
                 .orElseThrow(() -> new StatsNotFoundException(id));
     }
@@ -71,8 +68,7 @@ public class StatsServiceImp implements StatsService {
         return ((lvl + 100) * (lvl / 2)) + 100;
     }
 
-    @Override
-    public List<StatsValueDto> trainStrength(String keycloakId) {
+    public List<StatsValueModel> trainStrength(String keycloakId) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         StatsValue strength = stats.getStrength();
         int currentStrength = strength.getAmount();
@@ -80,8 +76,8 @@ public class StatsServiceImp implements StatsService {
         paymentService.chargeAccount(keycloakId, cost);
         strength.setAmount(++currentStrength);
         upDamageByNewStrength(currentStrength, stats);
-        StatsDto savedStatsDto = statsRepository.save(toDto(stats));
-        return Arrays.asList(savedStatsDto.strength(), savedStatsDto.damage());
+        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        return Arrays.asList(savedStatsModel.strength(), savedStatsModel.damage());
     }
 
     private int getCostNextLvl(int toTrain) {
@@ -98,26 +94,24 @@ public class StatsServiceImp implements StatsService {
         return ((currentStrength * 3) / 15) + 1;
     }
 
-    @Override
-    public StatsValueDto trainDexterity(String keycloakId) {
+    public StatsValueModel trainDexterity(String keycloakId) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         StatsValue dexterity = stats.getDexterity();
         int currentDexterity = dexterity.getAmount();
         int cost = getCostNextLvl(currentDexterity);
         paymentService.chargeAccount(keycloakId, cost);
         dexterity.setAmount(++currentDexterity);
-        StatsDto savedStatsDto = statsRepository.save(toDto(stats));
-        return savedStatsDto.dexterity();
+        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        return savedStatsModel.dexterity();
     }
 
-    @Override
-    public StatsValueDto addTimeBonusToStrength(String keycloakId, int amount, int minutes) {
+    public StatsValueModel addTimeBonusToStrength(String keycloakId, int amount, int minutes) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         StatsValue strength = stats.getStrength();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);
         strength.setTimeBonus(timeBonus);
-        StatsDto savedStatsDto = statsRepository.save(toDto(stats));
-        return savedStatsDto.strength();
+        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        return savedStatsModel.strength();
     }
 
     private TimeBonus buildTimeBonus(int amount, int minutes) {
@@ -127,40 +121,37 @@ public class StatsServiceImp implements StatsService {
                 .build();
     }
 
-    @Override
-    public StatsValueDto addTimeBonusToDamage(String keycloakId, int amount, int minutes) {
+    public StatsValueModel addTimeBonusToDamage(String keycloakId, int amount, int minutes) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         StatsValue damage = stats.getDamage();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);
         damage.setTimeBonus(timeBonus);
-        StatsDto savedStatsDto = statsRepository.save(toDto(stats));
-        return savedStatsDto.damage();
+        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        return savedStatsModel.damage();
     }
 
-    @Override
-    public StatsValueDto addTimeBonusToDexterity(String keycloakId, int amount, int minutes) {
+    public StatsValueModel addTimeBonusToDexterity(String keycloakId, int amount, int minutes) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         StatsValue dexterity = stats.getDexterity();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);
         dexterity.setTimeBonus(timeBonus);
-        StatsDto savedStatsDto = statsRepository.save(toDto(stats));
-        return savedStatsDto.dexterity();
+        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        return savedStatsModel.dexterity();
     }
 
     private Stats getStatsByKeycloakId(String keycloakId) {
         UserDto userDto = userService.getUser(keycloakId);
-        StatsDto statsDto = getStatById(userDto.stats());
-        Stats stats = toDomain(statsDto);
+        StatsModel statsModel = getStatById(userDto.stats());
+        Stats stats = toDomain(statsModel);
         return stats;
     }
 
-    @Override
-    public StatsValueDto addTimeBonusToDefense(String keycloakId, int amount, int minutes) {
+    public StatsValueModel addTimeBonusToDefense(String keycloakId, int amount, int minutes) {
         Stats stats = getStatsByKeycloakId(keycloakId);
         StatsValue defense = stats.getDefense();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);
         defense.setTimeBonus(timeBonus);
-        StatsDto savedStatsDto = statsRepository.save(toDto(stats));
-        return savedStatsDto.defense();
+        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        return savedStatsModel.defense();
     }
 }

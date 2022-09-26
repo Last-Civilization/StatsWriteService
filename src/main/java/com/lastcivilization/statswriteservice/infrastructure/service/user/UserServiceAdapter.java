@@ -1,6 +1,6 @@
 package com.lastcivilization.statswriteservice.infrastructure.service.user;
 
-import com.lastcivilization.statswriteservice.domain.dto.UserDto;
+import com.lastcivilization.statswriteservice.domain.port.dto.UserDto;
 import com.lastcivilization.statswriteservice.domain.exception.ApplicationException;
 import com.lastcivilization.statswriteservice.domain.exception.UserNotFoundException;
 import com.lastcivilization.statswriteservice.domain.port.UserService;

@@ -1,11 +1,11 @@
 package com.lastcivilization.statswriteservice.domain.port;
 
-import com.lastcivilization.statswriteservice.domain.dto.StatsDto;
+import com.lastcivilization.statswriteservice.domain.view.StatsModel;
 
 import java.util.Optional;
 
 public interface StatsRepository {
 
-    Optional<StatsDto> findById(Long id);
-    StatsDto save(StatsDto statsDto);
+    Optional<StatsModel> findById(Long id);
+    StatsModel save(StatsModel statsModel);
 }

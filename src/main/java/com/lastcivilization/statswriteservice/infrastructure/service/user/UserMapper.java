@@ -1,7 +1,6 @@
 package com.lastcivilization.statswriteservice.infrastructure.service.user;
 
-import com.lastcivilization.statswriteservice.domain.dto.StatsValueDto;
-import com.lastcivilization.statswriteservice.domain.dto.UserDto;
+import com.lastcivilization.statswriteservice.domain.port.dto.UserDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

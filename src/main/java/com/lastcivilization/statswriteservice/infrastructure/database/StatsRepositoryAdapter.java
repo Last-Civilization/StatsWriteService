@@ -1,6 +1,6 @@
 package com.lastcivilization.statswriteservice.infrastructure.database;
 
-import com.lastcivilization.statswriteservice.domain.dto.StatsDto;
+import com.lastcivilization.statswriteservice.domain.view.StatsModel;
 import com.lastcivilization.statswriteservice.domain.port.StatsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,15 +16,15 @@ class StatsRepositoryAdapter implements StatsRepository {
     private final StatsJpaRepository statsJpaRepository;
 
     @Override
-    public Optional<StatsDto> findById(Long id) {
+    public Optional<StatsModel> findById(Long id) {
         Optional<StatsEntity> statsEntity = statsJpaRepository.findById(id);
         return statsEntity
                 .map(MAPPER::toDto);
     }
 
     @Override
-    public StatsDto save(StatsDto statsDto) {
-        StatsEntity statsEntity = MAPPER.toEntity(statsDto);
+    public StatsModel save(StatsModel statsModel) {
+        StatsEntity statsEntity = MAPPER.toEntity(statsModel);
         StatsEntity savedStatsEntity = statsJpaRepository.save(statsEntity);
         return MAPPER.toDto(savedStatsEntity);
     }

@@ -1,9 +1,9 @@
 package com.lastcivilization.statswriteservice.utils;
 
-import com.lastcivilization.statswriteservice.domain.dto.LvlDto;
-import com.lastcivilization.statswriteservice.domain.dto.StatsDto;
-import com.lastcivilization.statswriteservice.domain.dto.StatsValueDto;
-import com.lastcivilization.statswriteservice.domain.dto.TimeBonusDto;
+import com.lastcivilization.statswriteservice.domain.view.LvlModel;
+import com.lastcivilization.statswriteservice.domain.view.StatsModel;
+import com.lastcivilization.statswriteservice.domain.view.StatsValueModel;
+import com.lastcivilization.statswriteservice.domain.view.TimeBonusModel;
 import com.lastcivilization.statswriteservice.domain.port.StatsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,23 +16,23 @@ class StatsCreator {
 
     private final StatsRepository statsRepository;
 
-    StatsDto resetTestStatsDetails(){
-        StatsDto statsDto = buildStats();
-        return statsRepository.save(statsDto);
+    StatsModel resetTestStatsDetails(){
+        StatsModel statsModel = buildStats();
+        return statsRepository.save(statsModel);
     }
 
-    private StatsDto buildStats() {
-        return new StatsDto(
+    private StatsModel buildStats() {
+        return new StatsModel(
                 1L,
-                new LvlDto(
+                new LvlModel(
                         null,
                         1,
                         0
                 ),
-                new StatsValueDto(
+                new StatsValueModel(
                         null,
                         1,
-                        new TimeBonusDto(
+                        new TimeBonusModel(
                                 null,
                                 LocalDateTime.now(),
                                 0
@@ -40,10 +40,10 @@ class StatsCreator {
                         "DAMAGE"
                 )
                 ,
-                new StatsValueDto(
+                new StatsValueModel(
                         null,
                         1,
-                        new TimeBonusDto(
+                        new TimeBonusModel(
                                 null,
                                 LocalDateTime.now(),
                                 0
@@ -51,10 +51,10 @@ class StatsCreator {
                         "STRENGTH"
                 )
                 ,
-                new StatsValueDto(
+                new StatsValueModel(
                         null,
                         1,
-                        new TimeBonusDto(
+                        new TimeBonusModel(
                                 null,
                                 LocalDateTime.now(),
                                 0
@@ -62,10 +62,10 @@ class StatsCreator {
                         "DEXTERITY"
                 )
                 ,
-                new StatsValueDto(
+                new StatsValueModel(
                         null,
                         1,
-                        new TimeBonusDto(
+                        new TimeBonusModel(
                                 null,
                                 LocalDateTime.now(),
                                 0
