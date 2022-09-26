@@ -12,9 +12,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.lastcivilization.statswriteservice.domain.Mapper.toDomain;
-import static com.lastcivilization.statswriteservice.domain.Mapper.toDto;
-
 public class StatsService {
 
     private final StatsRepository statsRepository;
@@ -29,7 +26,7 @@ public class StatsService {
 
     public StatsModel createStats() {
         Stats stats = buildStats();
-        StatsModel statsModel = toDto(stats);
+        StatsModel statsModel = Mapper.toDto(stats);
         StatsModel savedStatsModel = statsRepository.save(statsModel);
         return savedStatsModel;
     }
@@ -51,7 +48,7 @@ public class StatsService {
             int currentHealth = stats.getHealth();
             stats.setHealth(getHealthUpdate(currentHealth, currentLvl));
         }
-        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        StatsModel savedStatsModel = statsRepository.save(Mapper.toDto(stats));
         return savedStatsModel;
     }
 
@@ -76,7 +73,7 @@ public class StatsService {
         paymentService.chargeAccount(keycloakId, cost);
         strength.setAmount(++currentStrength);
         upDamageByNewStrength(currentStrength, stats);
-        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        StatsModel savedStatsModel = statsRepository.save(Mapper.toDto(stats));
         return Arrays.asList(savedStatsModel.strength(), savedStatsModel.damage());
     }
 
@@ -101,7 +98,7 @@ public class StatsService {
         int cost = getCostNextLvl(currentDexterity);
         paymentService.chargeAccount(keycloakId, cost);
         dexterity.setAmount(++currentDexterity);
-        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        StatsModel savedStatsModel = statsRepository.save(Mapper.toDto(stats));
         return savedStatsModel.dexterity();
     }
 
@@ -110,7 +107,7 @@ public class StatsService {
         StatsValue strength = stats.getStrength();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);
         strength.setTimeBonus(timeBonus);
-        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        StatsModel savedStatsModel = statsRepository.save(Mapper.toDto(stats));
         return savedStatsModel.strength();
     }
 
@@ -126,7 +123,7 @@ public class StatsService {
         StatsValue damage = stats.getDamage();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);
         damage.setTimeBonus(timeBonus);
-        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        StatsModel savedStatsModel = statsRepository.save(Mapper.toDto(stats));
         return savedStatsModel.damage();
     }
 
@@ -135,14 +132,14 @@ public class StatsService {
         StatsValue dexterity = stats.getDexterity();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);
         dexterity.setTimeBonus(timeBonus);
-        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        StatsModel savedStatsModel = statsRepository.save(Mapper.toDto(stats));
         return savedStatsModel.dexterity();
     }
 
     private Stats getStatsByKeycloakId(String keycloakId) {
         UserDto userDto = userService.getUser(keycloakId);
         StatsModel statsModel = getStatById(userDto.stats());
-        Stats stats = toDomain(statsModel);
+        Stats stats = Mapper.toDomain(statsModel);
         return stats;
     }
 
@@ -151,7 +148,7 @@ public class StatsService {
         StatsValue defense = stats.getDefense();
         TimeBonus timeBonus = buildTimeBonus(amount, minutes);
         defense.setTimeBonus(timeBonus);
-        StatsModel savedStatsModel = statsRepository.save(toDto(stats));
+        StatsModel savedStatsModel = statsRepository.save(Mapper.toDto(stats));
         return savedStatsModel.defense();
     }
 }
