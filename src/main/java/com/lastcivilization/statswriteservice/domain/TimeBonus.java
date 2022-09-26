@@ -8,37 +8,37 @@ class TimeBonus {
     private LocalDateTime endDate;
     private int amount;
 
-    public TimeBonus(Long id, LocalDateTime endDate, int amount) {
+    TimeBonus(Long id, LocalDateTime endDate, int amount) {
         this.id = id;
         this.endDate = endDate;
         this.amount = amount;
     }
 
-    public Long getId() {
+    Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(Long id) {
         this.id = id;
     }
 
-    public LocalDateTime getEndDate() {
+    LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public int getAmount() {
+    int getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    void setAmount(int amount) {
         this.amount = amount;
     }
 
-    public static final class Builder {
+    static final class Builder {
 
         private Long id;
         private LocalDateTime endDate = LocalDateTime.now();
@@ -47,26 +47,26 @@ class TimeBonus {
         private Builder() {
         }
 
-        public static Builder aTimeBonus() {
+        static Builder aTimeBonus() {
             return new Builder();
         }
 
-        public Builder id(Long id) {
+        Builder id(Long id) {
             this.id = id;
             return this;
         }
 
-        public Builder endDate(LocalDateTime endDate) {
+        Builder endDate(LocalDateTime endDate) {
             this.endDate = endDate;
             return this;
         }
 
-        public Builder amount(int amount) {
+        Builder amount(int amount) {
             this.amount = amount;
             return this;
         }
 
-        public TimeBonus build() {
+        TimeBonus build() {
             return new TimeBonus(id, endDate, amount);
         }
     }

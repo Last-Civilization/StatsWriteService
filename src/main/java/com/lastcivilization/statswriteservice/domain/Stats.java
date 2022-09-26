@@ -10,7 +10,7 @@ class Stats {
     private StatsValue defense;
     private int health;
 
-    public Stats(Long id, Lvl lvl, StatsValue damage, StatsValue strength, StatsValue dexterity, StatsValue defense, int health) {
+    Stats(Long id, Lvl lvl, StatsValue damage, StatsValue strength, StatsValue dexterity, StatsValue defense, int health) {
         this.id = id;
         this.lvl = lvl;
         this.damage = damage;
@@ -20,63 +20,63 @@ class Stats {
         this.health = health;
     }
 
-    public Long getId() {
+    Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    void setId(Long id) {
         this.id = id;
     }
 
-    public Lvl getLvl() {
+    Lvl getLvl() {
         return lvl;
     }
 
-    public void setLvl(Lvl lvl) {
+    void setLvl(Lvl lvl) {
         this.lvl = lvl;
     }
 
-    public StatsValue getDamage() {
+    StatsValue getDamage() {
         return damage;
     }
 
-    public void setDamage(StatsValue damage) {
+    void setDamage(StatsValue damage) {
         this.damage = damage;
     }
 
-    public StatsValue getStrength() {
+    StatsValue getStrength() {
         return strength;
     }
 
-    public void setStrength(StatsValue strength) {
+    void setStrength(StatsValue strength) {
         this.strength = strength;
     }
 
-    public StatsValue getDexterity() {
+    StatsValue getDexterity() {
         return dexterity;
     }
 
-    public void setDexterity(StatsValue dexterity) {
+    void setDexterity(StatsValue dexterity) {
         this.dexterity = dexterity;
     }
 
-    public StatsValue getDefense() {
+    StatsValue getDefense() {
         return defense;
     }
 
-    public void setDefense(StatsValue defense) {
+    void setDefense(StatsValue defense) {
         this.defense = defense;
     }
 
-    public int getHealth() {
+    int getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    void setHealth(int health) {
         this.health = health;
     }
 
-    public static final class Builder {
+    static final class Builder {
 
         private Long id;
         private Lvl lvl = Lvl.Builder.aLvl().build();
@@ -98,46 +98,46 @@ class Stats {
         private Builder() {
         }
 
-        public static Builder aStats() {
+        static Builder aStats() {
             return new Builder();
         }
 
-        public Builder id(Long id) {
+        Builder id(Long id) {
             this.id = id;
             return this;
         }
 
-        public Builder lvl(Lvl lvl) {
+        Builder lvl(Lvl lvl) {
             this.lvl = lvl;
             return this;
         }
 
-        public Builder damage(StatsValue damage) {
+        Builder damage(StatsValue damage) {
             this.damage = damage;
             return this;
         }
 
-        public Builder strength(StatsValue strength) {
+        Builder strength(StatsValue strength) {
             this.strength = strength;
             return this;
         }
 
-        public Builder dexterity(StatsValue dexterity) {
+        Builder dexterity(StatsValue dexterity) {
             this.dexterity = dexterity;
             return this;
         }
 
-        public Builder defense(StatsValue defense) {
+        Builder defense(StatsValue defense) {
             this.defense = defense;
             return this;
         }
 
-        public Builder health(int health){
+        Builder health(int health){
             this.health = health;
             return this;
         }
 
-        public Stats build() {
+        Stats build() {
             return new Stats(id, lvl, damage, strength, dexterity, defense, health);
         }
     }
