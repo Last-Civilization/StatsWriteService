@@ -30,7 +30,7 @@ public class StatsService {
         StatsModel savedStatsModel = statsRepository.save(statsModel);
         return savedStatsModel;
     }
-
+    
     private Stats buildStats() {
         return Stats.Builder.aStats().build();
     }

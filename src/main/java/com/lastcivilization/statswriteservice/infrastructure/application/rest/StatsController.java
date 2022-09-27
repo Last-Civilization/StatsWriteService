@@ -6,11 +6,13 @@ import com.lastcivilization.statswriteservice.domain.view.StatsValueModel;
 import com.lastcivilization.statswriteservice.infrastructure.application.rest.dto.StatsDto;
 import com.lastcivilization.statswriteservice.infrastructure.application.rest.dto.StatsValueDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.Min;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.lastcivilization.statswriteservice.infrastructure.application.rest.RestMapper.MAPPER;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +31,7 @@ class StatsController {
     private final StatsService statsService;
 
     @PostMapping
+    @ResponseStatus(CREATED)
     StatsDto createStats(){
         StatsModel statsModel = statsService.createStats();
         return MAPPER.toDto(statsModel);
