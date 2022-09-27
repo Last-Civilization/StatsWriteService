@@ -1,7 +1,7 @@
 package com.lastcivilization.statswriteservice.infrastructure.application.rest.dto;
 
 public record StatsValueDto(
-        Long id,
+        long id,
         int amount,
         TimeBonusDto timeBonus,
         String type,

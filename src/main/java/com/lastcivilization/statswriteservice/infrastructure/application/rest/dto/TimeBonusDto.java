@@ -3,7 +3,7 @@ package com.lastcivilization.statswriteservice.infrastructure.application.rest.d
 import java.time.LocalDateTime;
 
 public record TimeBonusDto(
-        Long id,
+        long id,
         LocalDateTime endDate,
         int amount
 ) { }
