@@ -6,12 +6,14 @@ import com.lastcivilization.statswriteservice.domain.view.StatsValueModel;
 import com.lastcivilization.statswriteservice.infrastructure.application.rest.dto.StatsDto;
 import com.lastcivilization.statswriteservice.infrastructure.application.rest.dto.StatsValueDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,7 @@ import static com.lastcivilization.statswriteservice.infrastructure.application.
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/stats")
+@Validated
 class StatsController {
 
     private final StatsService statsService;
@@ -31,7 +34,7 @@ class StatsController {
     }
 
     @PutMapping("/{keycloakId}/experiences/{amount}")
-    StatsDto experienceUp(@PathVariable String keycloakId, @PathVariable int amount){
+    StatsDto experienceUp(@PathVariable String keycloakId, @PathVariable @Min(1) int amount){
         StatsModel statsModel = statsService.experienceUp(keycloakId, amount);
         return MAPPER.toDto(statsModel);
     }
@@ -51,25 +54,25 @@ class StatsController {
     }
 
     @PutMapping("/{keycloakId}/strengths/bonuses/{amount}/times/{time}")
-    StatsValueDto giveTimeBonusToStrength(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
+    StatsValueDto giveTimeBonusToStrength(@PathVariable String keycloakId, @PathVariable @Min(1) int amount, @PathVariable @Min(1) int time){
         StatsValueModel statsValueModel = statsService.addTimeBonusToStrength(keycloakId, amount, time);
         return MAPPER.toDto(statsValueModel);
     }
 
     @PutMapping("/{keycloakId}/damages/bonuses/{amount}/times/{time}")
-    StatsValueDto giveTimeBonusToDamage(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
+    StatsValueDto giveTimeBonusToDamage(@PathVariable String keycloakId, @PathVariable @Min(1) int amount, @PathVariable @Min(1) int time){
         StatsValueModel statsValueModel = statsService.addTimeBonusToDamage(keycloakId, amount, time);
         return MAPPER.toDto(statsValueModel);
     }
 
     @PutMapping("/{keycloakId}/dexterity/bonuses/{amount}/times/{time}")
-    StatsValueDto giveTimeBonusToDexterity(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
+    StatsValueDto giveTimeBonusToDexterity(@PathVariable String keycloakId, @PathVariable @Min(1) int amount, @PathVariable @Min(1) int time){
         StatsValueModel statsValueModel = statsService.addTimeBonusToDexterity(keycloakId, amount, time);
         return MAPPER.toDto(statsValueModel);
     }
 
     @PutMapping("/{keycloakId}/defences/bonuses/{amount}/times/{time}")
-    StatsValueDto giveTimeBonusToDefence(@PathVariable String keycloakId, @PathVariable int amount, @PathVariable int time){
+    StatsValueDto giveTimeBonusToDefence(@PathVariable String keycloakId, @PathVariable @Min(1) int amount, @PathVariable @Min(1) int time){
         StatsValueModel statsValueModel = statsService.addTimeBonusToDefense(keycloakId, amount, time);
         return MAPPER.toDto(statsValueModel);
     }

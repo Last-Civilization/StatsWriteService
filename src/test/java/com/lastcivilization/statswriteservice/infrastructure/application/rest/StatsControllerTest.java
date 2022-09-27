@@ -61,6 +61,15 @@ class StatsControllerTest extends IntegrationBaseClass {
     }
 
     @Test
+    void shouldReturnValidationExceptionStatusWhileExperienceUpping() throws Exception {
+        //Addn
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/experiences/0"));
+        //then
+        experienceUpResult.andExpect(status().isBadRequest());
+    }
+
+    @Test
     void shouldReturnStatsNotFoundStatusWhileExperienceUpping() throws Exception {
         //Addn
         //when
@@ -151,6 +160,15 @@ class StatsControllerTest extends IntegrationBaseClass {
     }
 
     @Test
+    void shouldReturnValidationExceptionStatusWhileAddingTimeBonusToStrength() throws Exception {
+        //Addn
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/strengths/bonuses/0/times/0"));
+        //then
+        experienceUpResult.andExpect(status().isBadRequest());
+    }
+
+    @Test
     void shouldReturnStatsNotFoundStatusWhileAddingTimeBonusToStrength() throws Exception {
         //Addn
         //when
@@ -178,6 +196,15 @@ class StatsControllerTest extends IntegrationBaseClass {
                 .andExpect(jsonPath("$.timeBonus.endDate").exists())
                 .andExpect(jsonPath("$.timeBonus.amount").value(1))
                 .andExpect(jsonPath("$.total").value(1));
+    }
+
+    @Test
+    void shouldReturnValidationExceptionStatusWhileAddingTimeBonusToDamage() throws Exception {
+        //Addn
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/damages/bonuses/0/times/0"));
+        //then
+        experienceUpResult.andExpect(status().isBadRequest());
     }
 
     @Test
@@ -211,6 +238,15 @@ class StatsControllerTest extends IntegrationBaseClass {
     }
 
     @Test
+    void shouldReturnValidationExceptionStatusWhileAddingTimeBonusToDexterity() throws Exception {
+        //Addn
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/dexterity/bonuses/0/times/0"));
+        //then
+        experienceUpResult.andExpect(status().isBadRequest());
+    }
+
+    @Test
     void shouldReturnStatsNotFoundStatusWhileAddingTimeBonusToDexterity() throws Exception {
         //Addn
         //when
@@ -238,6 +274,15 @@ class StatsControllerTest extends IntegrationBaseClass {
                 .andExpect(jsonPath("$.timeBonus.endDate").exists())
                 .andExpect(jsonPath("$.timeBonus.amount").value(1))
                 .andExpect(jsonPath("$.total").value(1));
+    }
+
+    @Test
+    void shouldReturnValidationExceptionStatusWhileAddingTimeBonusToDefence() throws Exception {
+        //Addn
+        //when
+        ResultActions experienceUpResult = mockMvc.perform(put("/stats/1/defences/bonuses/0/times/0"));
+        //then
+        experienceUpResult.andExpect(status().isBadRequest());
     }
 
     @Test
