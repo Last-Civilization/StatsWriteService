@@ -28,4 +28,9 @@ class StatsRepositoryAdapter implements StatsRepository {
         StatsEntity savedStatsEntity = statsJpaRepository.save(statsEntity);
         return MAPPER.toDto(savedStatsEntity);
     }
+
+    @Override
+    public void deleteById(long id) {
+        statsJpaRepository.deleteById(id);
+    }
 }

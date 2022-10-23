@@ -12,18 +12,18 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-class StatsCreator {
+public class StatsCreator {
 
     private final StatsRepository statsRepository;
 
     StatsModel resetTestStatsDetails(){
-        StatsModel statsModel = buildStats();
+        StatsModel statsModel = buildStats(1L);
         return statsRepository.save(statsModel);
     }
 
-    private StatsModel buildStats() {
+    private StatsModel buildStats(long id) {
         return new StatsModel(
-                1L,
+                id,
                 new LvlModel(
                         null,
                         1,
@@ -74,5 +74,10 @@ class StatsCreator {
                 ),
                 100
         );
+    }
+
+    public void createTestStatsToDelete(){
+        StatsModel statsModel = buildStats(2L);
+        statsRepository.save(statsModel);
     }
 }

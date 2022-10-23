@@ -30,7 +30,7 @@ public class StatsService {
         StatsModel savedStatsModel = statsRepository.save(statsModel);
         return savedStatsModel;
     }
-    
+
     private Stats buildStats() {
         return Stats.Builder.aStats().build();
     }
@@ -150,5 +150,9 @@ public class StatsService {
         defense.setTimeBonus(timeBonus);
         StatsModel savedStatsModel = statsRepository.save(Mapper.toDto(stats));
         return savedStatsModel.defense();
+    }
+
+    public void deleteById(long id) {
+        statsRepository.deleteById(id);
     }
 }

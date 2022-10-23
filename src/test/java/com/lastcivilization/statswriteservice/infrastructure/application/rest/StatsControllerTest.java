@@ -17,7 +17,7 @@ class StatsControllerTest extends IntegrationBaseClass {
         //when
         ResultActions createResult = mockMvc.perform(post("/stats"));
         //then
-        createResult.andExpect(status().isOk())
+        createResult.andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.health").value(100))
                 .andExpect(jsonPath("$.lvl.current").value(1))
@@ -301,5 +301,15 @@ class StatsControllerTest extends IntegrationBaseClass {
         ResultActions experienceUpResult = mockMvc.perform(put("/stats/3/defences/bonuses/1/times/1"));
         //then
         experienceUpResult.andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldDeleteStats() throws Exception {
+        //given
+        statsCreator.createTestStatsToDelete();
+        //when
+        ResultActions deleteResult = mockMvc.perform(delete("/stats/2"));
+        //then
+        deleteResult.andExpect(status().isNoContent());
     }
 }

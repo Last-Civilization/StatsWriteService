@@ -8,4 +8,6 @@ public interface StatsRepository {
 
     Optional<StatsModel> findById(Long id);
     StatsModel save(StatsModel statsModel);
+
+    void deleteById(long id);
 }

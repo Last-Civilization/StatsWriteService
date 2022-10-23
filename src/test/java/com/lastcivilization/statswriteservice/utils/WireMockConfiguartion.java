@@ -36,7 +36,7 @@ class WireMockConfiguartion {
                         .withStatus(OK.value())
                         .withHeader("Content-Type", APPLICATION_JSON_VALUE)
                         .withBody("{ \"keycloakId\":\"b28f7e5a-2622-4721-9369-5f0c899effc9\",\"login\":\"test\",\"email\":\"kwolny31@gmail.com\"," +
-                                "\"stats\":3,\"equipment\":0,\"account\":0}")));
+                                "\"stats\":4,\"equipment\":0,\"account\":0}")));
         wireMockServer.stubFor(get(WireMock.urlEqualTo("/users/3"))
                 .willReturn(aResponse()
                         .withStatus(NOT_FOUND.value())));

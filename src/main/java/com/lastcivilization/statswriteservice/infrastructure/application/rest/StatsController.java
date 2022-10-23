@@ -8,6 +8,7 @@ import com.lastcivilization.statswriteservice.infrastructure.application.rest.dt
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 
 import static com.lastcivilization.statswriteservice.infrastructure.application.rest.RestMapper.MAPPER;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequiredArgsConstructor
@@ -79,5 +81,11 @@ class StatsController {
     StatsValueDto giveTimeBonusToDefence(@PathVariable String keycloakId, @PathVariable @Min(1) int amount, @PathVariable @Min(1) int time){
         StatsValueModel statsValueModel = statsService.addTimeBonusToDefense(keycloakId, amount, time);
         return MAPPER.toDto(statsValueModel);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(NO_CONTENT)
+    void deleteStats(@PathVariable @Min(1) long id){
+        statsService.deleteById(id);
     }
 }
